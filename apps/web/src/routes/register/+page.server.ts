@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from "./$types.js";
-import { fail } from "@sveltejs/kit";
-import { superValidate } from "sveltekit-superforms";
+import { fail, redirect } from "@sveltejs/kit";
+import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { formSchema } from "./schema";
 import { generateUsername } from "$lib/utils.js";
@@ -28,17 +28,22 @@ export const actions: Actions = {
                 password: form.data.password,
                 passwordConfirm: form.data.confirmPassword
             })
-            // TODO : Add email verification
-            // await event.locals.pb.collection('users').requestVerification(form.data.email)
-            return {
-                form,
-            };
+
+            await event.locals.pb.collection('users').requestVerification(form.data.email)
+
         } catch (err) {
-            // TODO: Handle the Error
-            console.log("Error creating user", err);
+            if (err.data.data.email.code) {
+                message(form, "Email already exists")
+                return fail(400, {
+                    form,
+                })
+            } else {
+                message(form, "Something went wrong")
+            }
             return fail(500, {
                 form,
             });
         }
+        throw redirect(303, "/login")
     },
 };

@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from "./$types.js";
 import { fail, redirect } from "@sveltejs/kit";
-import { superValidate } from "sveltekit-superforms";
+import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { formSchema } from "./schema";
 
@@ -24,12 +24,21 @@ export const actions: Actions = {
                 form.data.password
             )
             if (!event.locals.pb.authStore.model.verified) {
-                // TODO: add email verification first 
+                event.locals.pb.authStore.clear()
+                message(form, "Please verify your email address")
+                return fail(400, {
+                    form,
+                })
             }
 
         } catch (err) {
-            // TODO: Handle the Error
-            console.log("Error creating user", err);
+            if (err.data.message == 'Failed to authenticate.') {
+                message(form, "Wrong email or password")
+                return fail(400, {
+                    form,
+                })
+            }
+            message(form, "Something went wrong")
             return fail(500, {
                 form,
             });

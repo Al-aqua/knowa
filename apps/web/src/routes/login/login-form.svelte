@@ -13,8 +13,10 @@
 		dataType: 'json',
 		onUpdated: ({ form: f }) => {
 			if (!f.valid) {
-				// toast.success("You've successfully signed up!");
 				toast.error('Form is invalid!');
+			}
+			if (f.message) {
+				toast.error(f.message);
 			}
 		}
 	});
@@ -22,7 +24,7 @@
 	const { form: formData, enhance } = form;
 </script>
 
-<div class="flex items-center justify-center p-6 md:p-10">
+<div class="flex items-center justify-center overflow-scroll p-6 md:p-10">
 	<div class="w-full max-w-md space-y-6">
 		<div class="space-y-2 text-center">
 			<h1 class="text-3xl font-bold">Welcome back</h1>
