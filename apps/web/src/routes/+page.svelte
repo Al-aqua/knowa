@@ -24,7 +24,7 @@
 				alt="Hero"
 				class="mx-auto aspect-square overflow-hidden rounded-xl object-bottom sm:w-full lg:order-last"
 				height="550"
-				src="/landing1.jpeg"
+				src="/landing1.jpg"
 				width="550"
 			/>
 		</div>
@@ -58,7 +58,7 @@
 				alt="AI Assistant"
 				class="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
 				height="310"
-				src="/landing2.jpeg"
+				src="/landing2.jpg"
 				width="550"
 			/>
 		</div>
