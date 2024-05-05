@@ -45,7 +45,10 @@ export const actions: Actions = {
                 form,
             });
         }
-        // TODO: replace the landing page with the app
-        throw redirect(303, "/workstation");
+        const redirectTo = event.url.searchParams.get("redirectTo")
+        if (redirectTo) {
+            throw redirect(302, `/${redirectTo.slice(1)}`)
+        }
+        throw redirect(302, "/");
     },
 };

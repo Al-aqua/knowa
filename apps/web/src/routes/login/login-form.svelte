@@ -5,6 +5,9 @@
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { toast } from 'svelte-sonner';
+	import { page } from '$app/stores';
+	import ExclamationTriangle from 'svelte-radix/ExclamationTriangle.svelte';
+	import * as Alert from '$lib/components/ui/alert/index.js';
 
 	export let data: SuperValidated<Infer<FormSchema>>;
 
@@ -22,10 +25,19 @@
 	});
 
 	const { form: formData, enhance } = form;
+
+	let message: string;
+	$: message = $page.url.searchParams.get('message') ?? '';
 </script>
 
 <div class="flex items-center justify-center overflow-scroll p-6 md:p-10">
 	<div class="w-full max-w-md space-y-6">
+		{#if message}
+			<Alert.Root variant="destructive" class="m-auto max-h-fit max-w-fit">
+				<ExclamationTriangle class="h-4 w-4" />
+				<Alert.Title>Error</Alert.Title>
+				<Alert.Description>{message}</Alert.Description>
+			</Alert.Root>{/if}
 		<div class="space-y-2 text-center">
 			<h1 class="text-3xl font-bold">Welcome back</h1>
 			<p class="text-gray-500 dark:text-gray-400">

@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import type { RequestEvent } from "@sveltejs/kit";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -70,4 +71,11 @@ const { randomBytes } = await import('node:crypto')
 export const generateUsername = (name: string) => {
     const id = randomBytes(2).toString('hex')
     return `${name.slice(0, 5)}${id}`
+}
+
+export function handleLoginRedirect(event: RequestEvent,
+    message: string = "You must be logged in to access this page") {
+    const redirectURL = event.url.pathname + event.url.search
+    return `/login?redirectTo=${redirectURL}&message=${message}`
+
 }
