@@ -18,6 +18,9 @@
 			if (f.message) {
 				toast.error(f.message);
 			}
+			if (f.message === 'success') {
+				toast.success("We've sent you an email to reset your password");
+			}
 		}
 	});
 
@@ -27,14 +30,13 @@
 <div class="flex items-center justify-center overflow-scroll p-6 md:p-10">
 	<div class="w-full max-w-md space-y-6">
 		<div class="space-y-2 text-center">
-			<h1 class="text-3xl font-bold">Welcome back</h1>
+			<h1 class="text-3xl font-bold">Forgot your password?</h1>
 			<p class="text-gray-500 dark:text-gray-400">
-				Don't have an account yet?{' '}
-				<a class="underline" href="/register"> Sign up </a>
+				We will send you an email to reset your password
 			</p>
 		</div>
 
-		<form action="?/login" method="POST" use:enhance class="space-y-4">
+		<form action="?/resetPassword" method="POST" use:enhance class="space-y-4">
 			<Form.Field {form} name="email">
 				<Form.Control let:attrs>
 					<Form.Label>Email</Form.Label>
@@ -43,24 +45,7 @@
 				<Form.FieldErrors />
 			</Form.Field>
 
-			<Form.Field {form} name="password">
-				<Form.Control let:attrs>
-					<Form.Label>Password</Form.Label>
-					<Input {...attrs} bind:value={$formData.password} type="password" />
-				</Form.Control>
-				<Form.FieldErrors />
-				<a
-					href="/reset-password"
-					class="group block w-fit text-sm text-gray-500 transition duration-300"
-					>Forgot your password?
-					<span
-						class="block h-0.5 max-w-0 bg-gray-500 transition-all duration-500 group-hover:max-w-full"
-					></span>
-				</a>
-			</Form.Field>
-			<!--animate the hover underline-->
-
-			<Form.Button class="w-full">Login</Form.Button>
+			<Form.Button class="w-full">Reset Password</Form.Button>
 		</form>
 	</div>
 </div>

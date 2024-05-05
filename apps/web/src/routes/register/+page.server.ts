@@ -4,6 +4,7 @@ import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { formSchema } from "./schema";
 import { generateUsername } from "$lib/utils.js";
+import type { ClientResponseError } from "pocketbase";
 
 export const load: PageServerLoad = async () => {
     return {
@@ -32,7 +33,8 @@ export const actions: Actions = {
             await event.locals.pb.collection('users').requestVerification(form.data.email)
 
         } catch (err) {
-            if (err.data.data.email.code) {
+            const e = err as ClientResponseError
+            if (e.data.data.email.code) {
                 message(form, "Email already exists")
                 return fail(400, {
                     form,

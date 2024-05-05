@@ -3,6 +3,7 @@ import { fail, redirect } from "@sveltejs/kit";
 import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { formSchema } from "./schema";
+import type { ClientResponseError } from "pocketbase";
 
 export const load: PageServerLoad = async () => {
     return {
@@ -32,7 +33,8 @@ export const actions: Actions = {
             }
 
         } catch (err) {
-            if (err.data.message == 'Failed to authenticate.') {
+            const e = err as ClientResponseError
+            if (e.data.message == 'Failed to authenticate.') {
                 message(form, "Wrong email or password")
                 return fail(400, {
                     form,
@@ -44,6 +46,6 @@ export const actions: Actions = {
             });
         }
         // TODO: replace the landing page with the app
-        throw redirect(303, "/")
+        throw redirect(303, "/workstation");
     },
 };
