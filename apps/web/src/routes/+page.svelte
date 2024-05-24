@@ -16,8 +16,10 @@
 					</p>
 				</div>
 				<div class="flex flex-col gap-2 min-[400px]:flex-row">
-					<Button href="/" class="">Get Started</Button>
-					<Button href="/" variant="outline" class="">Learn More</Button>
+					<Button href="/register" class="">Get Started</Button>
+					<Button variant="outline" on:click={() => (window.location.hash = 'features')}
+						>Learn More</Button
+					>
 				</div>
 			</div>
 			<img
@@ -50,7 +52,7 @@
 					</p>
 				</div>
 				<div class="flex flex-col gap-2 min-[400px]:flex-row">
-					<Button href="/" class="">Learn More</Button>
+					<Button on:click={() => (window.location.hash = 'features')}>Learn More</Button>
 					<Button href="/" variant="outline" class="">Try Demo</Button>
 				</div>
 			</div>
@@ -65,7 +67,7 @@
 	</div>
 </section>
 
-<section class="w-full py-12 md:py-24 lg:py-32">
+<section class="w-full py-12 md:py-24 lg:py-32" id="features">
 	<div class="container px-4 md:px-6">
 		<div class="grid items-center justify-center gap-4 text-center">
 			<div class="space-y-3">

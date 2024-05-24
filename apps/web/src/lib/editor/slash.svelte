@@ -68,7 +68,7 @@
 					<div class="flex justify-between">
 						<p class="font-normal">{title}</p>
 					</div>
-					<p class="mt-2 text-gray-500">{subtitle}</p>
+					<p class="mt-2 text-gray-500" style="line-height: 1">{subtitle}</p>
 				</div>
 			</li>
 		{/each}
