@@ -7,6 +7,8 @@
 	import Bar from '$lib/editor/bar.svelte';
 	import SideBar from '$lib/side-bar.svelte';
 	import { onMount } from 'svelte';
+	import { slide } from 'svelte/transition';
+	import { sineIn } from 'svelte/easing';
 
 	let isOpen: boolean;
 	let title = 'Workstation';
@@ -28,12 +30,18 @@
 	}
 </script>
 
-<div class="grid grid-cols-4">
-	<div class={isOpen ? 'block' : 'hidden'}>
-		<SideBar />
-	</div>
+<div class="flex">
+	{#if isOpen}
+		<div
+			in:slide={{ axis: 'x', duration: 200 }}
+			out:slide={{ axis: 'x', duration: 200 }}
+			class="w-1/4"
+		>
+			<SideBar />
+		</div>
+	{/if}
 
-	<div class={isOpen ? 'col-span-3' : 'col-span-4'}>
+	<div class={isOpen ? 'w-3/4' : 'w-full'}>
 		<Bar {title}>
 			<Button variant="ghost" size="icon" on:click={toggleSideBar}>
 				{#if isOpen}
