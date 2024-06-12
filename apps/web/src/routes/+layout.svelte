@@ -8,6 +8,8 @@
 <Toaster />
 
 {#if $page.url.pathname !== '/workstation'}
-	<NavBar />
+	{#if $page.url.pathname !== '/settings/profile' && $page.url.pathname !== '/settings/account' && $page.url.pathname !== '/settings/security'}
+		<NavBar />
+	{/if}
 {/if}
 <slot></slot>

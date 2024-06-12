@@ -1,8 +1,8 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { cubicOut } from "svelte/easing";
-import type { TransitionConfig } from "svelte/transition";
-import type { RequestEvent } from "@sveltejs/kit";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { cubicOut } from 'svelte/easing';
+import type { TransitionConfig } from 'svelte/transition';
+import type { RequestEvent } from '@sveltejs/kit';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -20,13 +20,9 @@ export const flyAndScale = (
     params: FlyAndScaleParams = { y: -8, x: 0, start: 0.95, duration: 150 }
 ): TransitionConfig => {
     const style = getComputedStyle(node);
-    const transform = style.transform === "none" ? "" : style.transform;
+    const transform = style.transform === 'none' ? '' : style.transform;
 
-    const scaleConversion = (
-        valueA: number,
-        scaleA: [number, number],
-        scaleB: [number, number]
-    ) => {
+    const scaleConversion = (valueA: number, scaleA: [number, number], scaleB: [number, number]) => {
         const [minA, maxA] = scaleA;
         const [minB, maxB] = scaleB;
 
@@ -36,13 +32,11 @@ export const flyAndScale = (
         return valueB;
     };
 
-    const styleToString = (
-        style: Record<string, number | string | undefined>
-    ): string => {
+    const styleToString = (style: Record<string, number | string | undefined>): string => {
         return Object.keys(style).reduce((str, key) => {
             if (style[key] === undefined) return str;
             return str + `${key}:${style[key]};`;
-        }, "");
+        }, '');
     };
 
     return {
@@ -64,18 +58,28 @@ export const flyAndScale = (
 
 export const serializeNonPOJOs = (obj: unknown) => {
     return structuredClone(obj);
-}
+};
 
-const { randomBytes } = await import('node:crypto')
+const { randomBytes } = await import('node:crypto');
 
 export const generateUsername = (name: string) => {
-    const id = randomBytes(2).toString('hex')
-    return `${name.slice(0, 5)}${id}`
+    const id = randomBytes(2).toString('hex');
+    return `${name.slice(0, 5)}${id}`;
+};
+
+export function handleLoginRedirect(
+    event: RequestEvent,
+    message: string = 'You must be logged in to access this page'
+) {
+    const redirectURL = event.url.pathname + event.url.search;
+    return `/login?redirectTo=${redirectURL}&message=${message}`;
 }
 
-export function handleLoginRedirect(event: RequestEvent,
-    message: string = "You must be logged in to access this page") {
-    const redirectURL = event.url.pathname + event.url.search
-    return `/login?redirectTo=${redirectURL}&message=${message}`
-
-}
+export const getImageUrl = (
+    collectionId: string,
+    recordId: string,
+    fileName: string,
+    size = '0x0'
+) => {
+    return `http://localhost:8090/api/files/${collectionId}/${recordId}/${fileName}?thumb=${size}`;
+};

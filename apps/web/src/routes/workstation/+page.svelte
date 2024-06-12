@@ -8,7 +8,9 @@
 	import SideBar from '$lib/side-bar.svelte';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
-	import { sineIn } from 'svelte/easing';
+	import { getImageUrl } from '$lib/utils';
+
+	export let data;
 
 	let isOpen: boolean;
 	let title = 'Workstation';
@@ -37,7 +39,13 @@
 			out:slide={{ axis: 'x', duration: 200 }}
 			class="w-1/4"
 		>
-			<SideBar />
+			<SideBar
+				avatar={data?.user?.avatar
+					? getImageUrl(data.user?.collectionId, data.user?.id, data.user?.avatar)
+					: `https://ui-avatars.com/api/?name=${data?.user?.name}`}
+				fallbackAvatar={data?.user?.name}
+				username={data?.user?.name}
+			/>
 		</div>
 	{/if}
 
