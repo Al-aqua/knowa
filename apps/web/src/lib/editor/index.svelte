@@ -9,6 +9,8 @@
 	import * as Y from 'yjs';
 	import { WebrtcProvider } from 'y-webrtc';
 
+	export let content;
+
 	let ydoc = new Y.Doc();
 	let element: HTMLElement;
 	let editor: Editor;
@@ -21,12 +23,13 @@
 				Slash.configure({
 					suggestion
 				}),
-				Placeholder,
-				Collaboration.configure({
-					document: ydoc,
-					onFirstRender: () => new WebrtcProvider('my-document', ydoc)
-				})
+				Placeholder
+				// Collaboration.configure({
+				// 	document: ydoc,
+				// 	onFirstRender: () => new WebrtcProvider('my-document', ydoc)
+				// })
 			],
+			content: content,
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;

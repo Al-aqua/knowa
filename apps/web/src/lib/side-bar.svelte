@@ -2,10 +2,27 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import Settings from 'lucide-svelte/icons/settings';
 	import { Button } from '$lib/components/ui/button';
+	import FileTree from './file-tree.svelte';
+
+	export let createFile = () => {};
 
 	export let avatar;
 	export let fallbackAvatar = 'Know';
 	export let username;
+
+	export let files = [];
+
+	// const files = [
+	// 	{
+	// 		name: 'src',
+	// 		type: 'folder',
+	// 		children: [
+	// 			{ name: 'App.svelte', type: 'file' },
+	// 			{ name: 'main.js', type: 'file' }
+	// 		]
+	// 	},
+	// 	{ name: 'package.json', type: 'file' }
+	// ];
 </script>
 
 <div class="h-screen border-b border-r border-primary">
@@ -18,4 +35,6 @@
 		<p class="ml-2 font-bold">{username}</p>
 		<Button href="/settings" variant="ghost" class="ml-auto" size="icon"><Settings /></Button>
 	</header>
+
+	<FileTree {files} {createFile} />
 </div>

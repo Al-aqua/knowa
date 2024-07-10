@@ -30,6 +30,9 @@
 	function toggleSideBar() {
 		isOpen = !isOpen;
 	}
+
+	function createFile() {}
+	let files = data.files;
 </script>
 
 <div class="flex">
@@ -45,6 +48,8 @@
 					: `https://ui-avatars.com/api/?name=${data?.user?.name}`}
 				fallbackAvatar={data?.user?.name}
 				username={data?.user?.name}
+				{createFile}
+				{files}
 			/>
 		</div>
 	{/if}
